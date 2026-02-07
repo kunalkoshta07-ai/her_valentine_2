@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Minimal font stack */
+.convey {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.09rem;
+    font-weight: bolder;
+}
+
+.ask {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    letter-spacing: 0.05rem;
+    font-weight: bolder;
+}
+
+.button-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.05rem;
+    font-weight: bolder;
+}

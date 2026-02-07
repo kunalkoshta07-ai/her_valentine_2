@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Minimal font stack - system UI only */
+.button-text{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    @apply font-bold;
+    letter-spacing: 0.015rem;
+}
+
+.typing-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    @apply font-bold;
+    letter-spacing: 0.015rem;
+
+}
+
+.text-font {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    @apply font-bold text-xl;
+    letter-spacing: 0.015rem;
+}
+
+.text-author {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    @apply font-bold text-lg;
+    color: #3a1515;
+}
+
+.custom-color-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-br from-[#56ab2f] to-[#a8e063];
+}
+
+
+.heart {
+    height: 200px;
+    width: 200px;
+    background-color: #cc2b5e ;
+    position: relative;
+    transform: rotate(-45deg);
+    box-shadow: -20px 20px 50px #f20044;
+    animation: heart-animation 2s linear infinite;
+}
+
+
+@keyframes heart-animation {
+    0% {
+        transform: rotate(-45deg) scale(1);
+        box-shadow: -20px 20px 50px #f20044;
+    }
+
+    25% {
+        transform: rotate(-50deg) scale(1.1);
+        box-shadow: -25px 25px 50px #ff6b6b;
+    }
+
+    50% {
+        transform: rotate(-45deg) scale(1);
+        box-shadow: -20px 20px 50px #f20044;
+    }
+
+    75% {
+        transform: rotate(-40deg) scale(1.1);
+        box-shadow: -25px 25px 50px #ff6b6b;
+    }
+
+    100% {
+        transform: rotate(-45deg) scale(1);
+        box-shadow: -20px 20px 50px #f20044;
+    }
+}
+
+
+.heart:before {
+    content: '';
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    background-color: #cc2b5e;
+    top: -50%;
+    border-radius: 50%;
+    box-shadow: 15px -20px 50px #f20044;
+}
+
+.heart:after {
+    content: '';
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    background-color: #cc2b5e;
+    right: -50%;
+    border-radius: 50%;
+    box-shadow: 30px -10px 50px #f20044;
+}
