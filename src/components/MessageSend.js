@@ -1,89 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { DatePicker } from "antd";
-import { TimePicker } from 'antd';
-import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { Link, useNavigate } from 'react-router-dom';
-import emailjs from '@emailjs/browser';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/message.css';
 
 export default function MessageSend() {
 
-    const templateId = process.env.REACT_APP_API_EMAIL_JS_templateId;
-    const serviceId = process.env.REACT_APP_API_EMAIL_JS_serviceId;
-    const publicKey = process.env.REACT_APP_API_EMAIL_JS_publicKey;
-
-    const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState(null)
     const [isSent, setIsSent] = useState("Send");
     const [messageInput, setMessageInput] = useState("");
-    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const isButtonDisabled = messageInput.trim() === '';
 
     const navigate2 = useNavigate();
 
-    const handleOnChangeDate = (date, dateString) => {
-        setDate(dateString);
-    }
-
-    dayjs.extend(customParseFormat);
-
-    const handleOnChangeTime = (time, timeString) => {
-        setTime(timeString);
-    };
-
-    useEffect(() => {
-        setIsButtonDisabled(!(messageInput !== '' && date && time));
-    }, [date, time, messageInput]);
-
     const handleSubmitMessage = (event) => {
         event.preventDefault();
+        if (isButtonDisabled) return;
         setIsSent("Sent");
-        setIsButtonDisabled(true);
-
-        // Emailing
-
-        const templateParams = {
-            message: messageInput,
-            date: dayjs(date).format('DD/MM/YYYY'),
-            time: time
-        }
-
-        emailjs.send(serviceId, templateId, templateParams, publicKey)
-            .then((response) => {
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-
-        setDate(new Date());
-        setTime(null);
+        const messageToPass = messageInput.trim();
         setMessageInput('');
 
-        setTimeout(() => {
-            navigate2('/endpage')
-        }, 3000)
+        navigate2('/endpage', { state: { message: messageToPass } });
     }
 
     return (
         <div className="message-form flex items-center justify-around flex-col gap-5">
-            <div className="time-and-date flex flex-row flex-wrap items-center justify-center gap-6">
-                <div className="date w-fit h-fit">
-                    <DatePicker
-                        onChange={handleOnChangeDate}
-                        className='w-36 sm:w-48 lg:w-56 h-10 sm:h-12 lg:h-14'
-                    />
-                </div>
-                <div className="time w-fit h-fit">
-                    <TimePicker
-                        changeOnScroll
-                        needConfirm={false}
-                        onChange={handleOnChangeTime}
-                        defaultOpenValue={dayjs('00:00:00', 'HH:mm:ss')}
-                        className='w-36 sm:w-48 lg:w-56 h-10 sm:h-12 lg:h-14'
-                        value={time ? dayjs(time, 'HH:mm:ss') : null}
-                    />
-                </div>
-            </div>
             <div className="text-area">
                 <textarea
                     className='area-text w-[19.5rem] sm:w-[26rem] lg:w-[29.8rem] h-36 sm:h-48 lg:h-60 text-slate-600 font-bold p-4 rounded-lg shadow-lg hover:shadow-xl active:shadow-none duration-200 placeholder:text-slate-400'
@@ -106,7 +44,6 @@ export default function MessageSend() {
                     </div>
                 </button>
             </div>
-            <Link to="/endpage" className="endpage-link hidden pointer-events-none select-none"></Link>
         </div>
     );
 }

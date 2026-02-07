@@ -1,16 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import NoteBook from './NoteBook';
 import './styles/endpage.css';
 import endPhoto from './assets/images/photo_2.png';
 import songAudio from './assets/videos/song.mp3';
 
-export default function Note(props) {
+export default function EndPage(props) {
+  const location = useLocation();
+  const message = location.state?.message || '';
   const audioRef = useRef(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
 
   useEffect(() => {
     props.setProgress(100);
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     // Play song when user lands on this page
@@ -28,6 +31,13 @@ export default function Note(props) {
 
   return (
     <div className='note-for-crush bg-transparent bg-gradient-to-br from-[#3a1c71] via-[#d76d77] to-[#ffaf7b] w-full min-h-screen flex flex-col flex-wrap gap-0 sm:gap-6 justify-center items-center'>
+      {message && (
+        <div className="message-display w-full max-w-2xl px-4 py-4 sm:py-6 text-center">
+          <p className="text-white/95 text-lg sm:text-xl lg:text-2xl font-bold drop-shadow-lg whitespace-pre-wrap break-words">
+            {message}
+          </p>
+        </div>
+      )}
       <div className="up-content flex items-center justify-center">
         <div className="note-card flex items-center justify-between ">
          <NoteBook />
