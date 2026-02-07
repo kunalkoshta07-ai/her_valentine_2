@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import NoteBook from './NoteBook';
 import './styles/endpage.css';
 import endPhoto from './assets/images/photo_2.png';
-import songAudio from './assets/videos/song.mp4';
+import songAudio from './assets/videos/song.mp3';
 
 export default function Note(props) {
   const audioRef = useRef(null);
